@@ -33,14 +33,13 @@ export const TabBar: React.FC<TabBarProps> = ({ activeKey = 'home', onTabPress }
       pt="$4"
       pb="$4"
     >
-      <HStack alignItems="center" justifyContent="space-around">
+      <HStack alignItems="center" justifyContent="space-between">
         {TAB_ITEMS.map((tab) => {
           const isActive = tab.key === activeKey;
 
           return (
             <Pressable
               key={tab.key}
-              flex={1}
               alignItems="center"
               accessibilityRole="button"
               accessibilityLabel={`${tab.label} tab`}
