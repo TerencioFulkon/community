@@ -24,16 +24,16 @@ export const Header: React.FC<HeaderProps> = ({ title, avatarUrl, userName }) =>
     <Box
       bg="$backgroundLight0"
       borderBottomWidth="$1"
-      borderColor="$backgroundLight300"
+      borderColor="$backgroundLight200"
       px="$6"
-      pt={insets.top ? insets.top + 12 : 24}
+      pt="$4"
       pb="$4"
     >
       <HStack alignItems="center" justifyContent="space-between">
         <Text size="lg" fontWeight="$bold" color="$textLight0">
           {title}
         </Text>
-        <Avatar size="sm" accessibilityLabel="User profile">
+        <Avatar size="md" accessibilityLabel="User profile">
           {avatarUrl ? <AvatarImage source={{ uri: avatarUrl }} /> : null}
           <AvatarFallbackText>{initials}</AvatarFallbackText>
         </Avatar>
