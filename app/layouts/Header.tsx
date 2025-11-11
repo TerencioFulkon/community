@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { Avatar, AvatarFallbackText, AvatarImage, Box, HStack, Text } from '@gluestack-ui/themed';
+import { Box, HStack, Text } from '@gluestack-ui/themed';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ProfileAvatar } from 'app/components';
 
 export interface HeaderProps {
   title: string;
@@ -33,10 +34,7 @@ export const Header: React.FC<HeaderProps> = ({ title, avatarUrl, userName }) =>
         <Text size="lg" fontWeight="$bold" color="$textLight0">
           {title}
         </Text>
-        <Avatar size="md" accessibilityLabel="User profile">
-          {avatarUrl ? <AvatarImage source={{ uri: avatarUrl }} /> : null}
-          <AvatarFallbackText>{initials}</AvatarFallbackText>
-        </Avatar>
+        <ProfileAvatar name={userName} avatarUrl={avatarUrl} accessibilityLabel="User profile" />
       </HStack>
     </Box>
   );

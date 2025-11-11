@@ -1,27 +1,16 @@
 import React from 'react';
-import {
-  Box,
-  HStack,
-  Icon,
-  Pressable,
-} from '@gluestack-ui/themed';
-import {
-  Home,
-  Hash,
-  Plus,
-  MessageCircle,
-  Bell,
-} from 'lucide-react-native';
+import { Box, HStack, Icon, Pressable } from '@gluestack-ui/themed';
+import { Home, Hash, Plus, MessageCircle, Bell } from 'lucide-react-native';
 
-type TabKey = 'home' | 'spaces' | 'post' | 'messages' | 'notifications';
+export type TabKey = 'home' | 'spaces' | 'post' | 'messages' | 'notifications';
 
-interface TabItem {
+export interface TabItem {
   key: TabKey;
   label: string;
   icon: typeof Home;
 }
 
-const tabs: TabItem[] = [
+export const TAB_ITEMS: TabItem[] = [
   { key: 'home', label: 'Home', icon: Home },
   { key: 'spaces', label: 'Spaces', icon: Hash },
   { key: 'post', label: 'Post', icon: Plus },
@@ -45,7 +34,7 @@ export const TabBar: React.FC<TabBarProps> = ({ activeKey = 'home', onTabPress }
       pb="$4"
     >
       <HStack alignItems="center" justifyContent="space-around">
-        {tabs.map((tab) => {
+        {TAB_ITEMS.map((tab) => {
           const isActive = tab.key === activeKey;
 
           return (
@@ -61,7 +50,7 @@ export const TabBar: React.FC<TabBarProps> = ({ activeKey = 'home', onTabPress }
             >
               <Icon
                 as={tab.icon}
-                size="md"
+                size="xl"
                 color={isActive ? '$text0' : '$textLight400'}
               />
             </Pressable>

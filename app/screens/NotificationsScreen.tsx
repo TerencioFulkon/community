@@ -2,18 +2,18 @@ import React from 'react';
 import { Box, Text, VStack } from '@gluestack-ui/themed';
 import { PageHeading } from 'app/components';
 
-export const HomeScreen: React.FC = () => {
+export const NotificationsScreen: React.FC = () => {
   return (
     <Box flex={1} px="$6" py="$6" bg="$backgroundLight50">
       <VStack space="$3">
-        <PageHeading>Welcome Home</PageHeading>
+        <PageHeading>Notifications</PageHeading>
         <Text size="md" color="$textLight500">
-          Start building your Neurodivergent Community experience from this fresh canvas.
+          Review gentle alerts about new posts, replies, and community updates here.
         </Text>
       </VStack>
     </Box>
   );
 };
 
-export default HomeScreen;
+export default NotificationsScreen;
 
