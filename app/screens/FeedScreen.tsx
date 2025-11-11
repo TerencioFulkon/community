@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { Box, VStack, useToken } from '@gluestack-ui/themed';
-import { Header } from 'app/components/Header';
-import { PostCard } from 'app/components/PostCard';
+import { useWindowDimensions } from 'react-native';
+import { Box, ScrollView, VStack, useToken } from '@gluestack-ui/themed';
+import { PostCard } from 'app/components';
+import { Header, BottomNav } from 'app/layouts';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const mockFeed = [
   {
@@ -29,43 +30,46 @@ const mockFeed = [
   },
 ];
 
-const styles = StyleSheet.create({
-  feedContent: {
-    width: '100%',
-    maxWidth: 680,
-    alignSelf: 'center',
-  },
-});
-
-const resolveSpacing = (tokenValue: number | string | undefined): number =>
-  typeof tokenValue === 'number' ? tokenValue : parseFloat(tokenValue ?? '0');
+const toNumber = (value: number | string | undefined): number =>
+  typeof value === 'number' ? value : parseFloat(value ?? '0');
 
 export const FeedScreen: React.FC = () => {
-  const paddingValue = resolveSpacing(useToken('space', '5'));
+  const spaceToken = useToken('space', '5');
+  const paddingValue = toNumber(spaceToken);
+  const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  const bottomSpace = paddingValue + Math.max(insets.bottom, 12) + 72;
+  const isCompact = width < 768;
 
   const contentContainerStyle = useMemo(
     () => ({
-      paddingHorizontal: paddingValue,
-      paddingVertical: paddingValue,
+      paddingHorizontal: isCompact ? 0 : paddingValue,
+      paddingTop: paddingValue,
+      paddingBottom: bottomSpace,
     }),
-    [paddingValue]
+    [bottomSpace, isCompact, paddingValue]
   );
 
   return (
     <Box flex={1} bg="$backgroundLight50">
       <Header />
       <ScrollView contentContainerStyle={contentContainerStyle} showsVerticalScrollIndicator={false}>
-        <Box style={styles.feedContent}>
-          <VStack space="4">
+        <Box
+          w="$full"
+          alignSelf={isCompact ? undefined : 'center'}
+          maxWidth={isCompact ? undefined : 680}
+          px={isCompact ? '$5' : '0'}
+        >
+          <VStack space="$5">
             {mockFeed.map((post) => (
               <PostCard key={post.id} {...post} />
             ))}
           </VStack>
         </Box>
       </ScrollView>
+      <BottomNav activeKey="home" />
     </Box>
   );
 };
 
 export default FeedScreen;
-
