@@ -33,7 +33,7 @@ export const Header: React.FC<HeaderProps> = ({ title, avatarUrl, userName }) =>
         <Text size="lg" fontWeight="$bold" color="$textLight0">
           {title}
         </Text>
-        <Avatar size="md" accessibilityLabel="User profile">
+        <Avatar size="sm" accessibilityLabel="User profile">
           {avatarUrl ? <AvatarImage source={{ uri: avatarUrl }} /> : null}
           <AvatarFallbackText>{initials}</AvatarFallbackText>
         </Avatar>
