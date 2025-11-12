@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useState } from 'react';
-import { Animated } from 'react-native';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { Animated, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { Box } from '@gluestack-ui/themed';
 import Header from './Header';
 import TabBar, { TabBarProps, TabKey } from './TabBar';
@@ -36,11 +36,11 @@ export const ScreenContainer: React.FC<ScreenContainerProps> = ({
   });
   const contentPaddingTop = Animated.subtract(headerHeight, clampedScroll);
 
-  const handleScroll = useMemo(
-    () =>
-      Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
-        useNativeDriver: true,
-      }),
+  const handleScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const y = Math.max(0, event.nativeEvent.contentOffset.y || 0);
+      scrollY.setValue(y);
+    },
     [scrollY]
   );
 
