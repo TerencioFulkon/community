@@ -17,6 +17,7 @@ export interface SpaceItem {
   name: string;
   description: string;
   memberCount: number;
+  onlineCount?: number;
   iconUrl?: string;
 }
 

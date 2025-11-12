@@ -14,12 +14,13 @@ const SpaceCardComponent: React.FC<SpaceCardProps> = ({
   description,
   memberCount,
   iconUrl,
+  onlineCount = 0,
 }) => (
   <Card
     accessibilityRole="summary"
     accessibilityLabel={`${name} space with ${memberCount} members`}
   >
-    <HStack space="sm" alignItems="center" justifyContent="space-between">
+    <HStack space="sm" alignItems="flex-start" justifyContent="space-between">
       {iconUrl ? (
         <Image
           source={{ uri: iconUrl }}
@@ -43,7 +44,13 @@ const SpaceCardComponent: React.FC<SpaceCardProps> = ({
       <VStack space="sm" flex={1}>
         <CardTitleText>{name}</CardTitleText>
         <CardParagraph>{description}</CardParagraph>
-        <CardFootnoteText>{memberCount.toLocaleString()} members</CardFootnoteText>
+        <HStack space="xl"alignItems="center" pt="$1">
+          <CardFootnoteText>{memberCount.toLocaleString()} members</CardFootnoteText>
+          <HStack alignItems="center" space="sm">
+            <Box width={6} height={6} borderRadius={999} bg="#22C55E" />
+            <CardFootnoteText>{onlineCount.toLocaleString()} online</CardFootnoteText>
+          </HStack>
+        </HStack>
       </VStack>
     </HStack>
   </Card>

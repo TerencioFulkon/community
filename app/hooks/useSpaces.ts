@@ -7,6 +7,7 @@ const MOCK_SPACES: SpaceItem[] = [
     name: 'Sensory Soothers',
     description: 'Pass around weighted blanket hacks, stim toy reviews, and gentle playlists.',
     memberCount: 128,
+    onlineCount: 31,
     iconUrl: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -14,6 +15,7 @@ const MOCK_SPACES: SpaceItem[] = [
     name: 'Executive Function Crew',
     description: 'Body-doubling rooms, reminder scripts, and calendar audits every Sunday.',
     memberCount: 94,
+    onlineCount: 22,
     iconUrl: 'https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -21,6 +23,7 @@ const MOCK_SPACES: SpaceItem[] = [
     name: 'Masked & Unmasked',
     description: 'Talk through identity, safety, and how we decompress after masking all day.',
     memberCount: 76,
+    onlineCount: 18,
     iconUrl: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -28,6 +31,7 @@ const MOCK_SPACES: SpaceItem[] = [
     name: 'Low-Stim Socials',
     description: 'Plan museum mornings, swap café reviews, and find gentle hangout buddies.',
     memberCount: 112,
+    onlineCount: 40,
     iconUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -35,6 +39,7 @@ const MOCK_SPACES: SpaceItem[] = [
     name: 'Hyperfocus Lab',
     description: 'Share deep-dives, “info dump” threads, and celebrate special interests loudly.',
     memberCount: 67,
+    onlineCount: 15,
     iconUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -42,6 +47,7 @@ const MOCK_SPACES: SpaceItem[] = [
     name: 'Systems Test Kitchen',
     description: 'Experiment with planners, habit stacks, and automation without judgment.',
     memberCount: 83,
+    onlineCount: 19,
     iconUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=200&h=200&q=80',
   },
 ];
