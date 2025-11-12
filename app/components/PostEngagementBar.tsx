@@ -45,7 +45,7 @@ export const PostEngagementBar: React.FC<PostEngagementBarProps> = ({
   };
 
   return (
-    <HStack space="3xl" alignItems="center" pt="$1">
+    <HStack alignItems="center" justifyContent="space-between" pt="$1">
       {(Object.keys(ACTION_CONFIG) as ActionKey[]).map((actionKey) => {
         const action = ACTION_CONFIG[actionKey];
         const IconComponent = action.icon;

@@ -55,7 +55,7 @@ const FeedListComponent = <T,>({
             shouldShowFooter ? ListFooterComponent ?? DEFAULT_FOOTER : null
           }
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }}
+          contentContainerStyle={{ flexGrow: 1 }}
         />
       </Box>
     </Box>
