@@ -29,8 +29,8 @@ export const TabBar: React.FC<TabBarProps> = ({ activeKey = 'home', onTabPress }
       bg="$backgroundLight0"
       borderTopWidth="$1"
       borderColor="$backgroundLight200"
-      px="$6"
-      py="$6"
+      px="$4"
+      py="$4"
     >
       <HStack alignItems="center" justifyContent="space-between">
         {TAB_ITEMS.map((tab) => {
