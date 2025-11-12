@@ -11,6 +11,7 @@ export interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ title, avatarUrl, userName }) => {
   const insets = useSafeAreaInsets();
+  const topPadding = insets.top > 0 ? insets.top + 12 : 24;
 
   return (
     <Box
@@ -18,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ title, avatarUrl, userName }) =>
       borderBottomWidth="$1"
       borderColor="$backgroundLight200"
       px="$6"
-      py="$4"
+      py="$5"
     >
       <HStack alignItems="center" justifyContent="space-between">
         <PageHeading>{title}</PageHeading>

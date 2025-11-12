@@ -11,6 +11,7 @@ export interface SpaceItem {
   name: string;
   description: string;
   memberCount: number;
+  iconUrl?: string;
 }
 
 export interface MessageItem {
@@ -27,4 +28,3 @@ export interface NotificationItem {
   description: string;
   timestamp: string;
 }
-

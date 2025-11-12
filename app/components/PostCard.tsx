@@ -18,13 +18,13 @@ const PostCardComponent: React.FC<PostCardProps> = ({
       accessibilityLabel={`Post by ${authorName} at ${timestamp}`}
     >
       <VStack space="$3">
-        <HStack space="$3" alignItems="center">
+        <HStack space="$3" alignItems="center" justifyContent="space-between">
           <ProfileAvatar
             name={authorName}
             avatarUrl={authorAvatarUrl}
             accessibilityLabel={`Avatar for ${authorName}`}
           />
-          <VStack space="$1">
+          <VStack space="$1" flex={1}>
             <Text size="md" color="$text0" fontWeight="$semibold">
               {authorName}
             </Text>
