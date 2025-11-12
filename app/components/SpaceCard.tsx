@@ -20,7 +20,7 @@ const SpaceCardComponent: React.FC<SpaceCardProps> = ({
     accessibilityRole="summary"
     accessibilityLabel={`${name} space with ${memberCount} members`}
   >
-    <HStack space="sm" alignItems="flex-start" justifyContent="space-between">
+    <HStack space="sm" alignItems="center" justifyContent="space-between">
       {iconUrl ? (
         <Image
           source={{ uri: iconUrl }}
