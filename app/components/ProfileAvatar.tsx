@@ -19,7 +19,7 @@ const getInitials = (name?: string): string => {
 export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
   name,
   avatarUrl,
-  size = 'md',
+  size = 'sm',
   accessibilityLabel = 'User avatar',
 }) => {
   const initials = useMemo(() => getInitials(name), [name]);

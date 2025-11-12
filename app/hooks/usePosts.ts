@@ -29,6 +29,33 @@ const MOCK_POSTS: PostItem[] = [
       'Hyperfocus journal entry: spent three hours designing a stimming-friendly keychain. Posting the template if anyone else wants to fidget in peace.',
     timestamp: '6h ago',
   },
+  {
+    id: 'post-4',
+    authorName: 'Eli Gardner',
+    authorAvatarUrl:
+      'https://images.unsplash.com/photo-1545996124-0501ebae84d0?auto=format&fit=facearea&w=160&h=160&q=80',
+    content:
+      'Shared my “quiet commute kit”: bone-conduction headphones, sunglasses, and peppermint oil for crowded trains.',
+    timestamp: '8h ago',
+  },
+  {
+    id: 'post-5',
+    authorName: 'Noor Haddad',
+    authorAvatarUrl:
+      'https://images.unsplash.com/photo-1542156822-6924d1a71ace?auto=format&fit=facearea&w=160&h=160&q=80',
+    content:
+      'Built a notion template to track sensory energy. Mapping bright-light days vs. quiet days changed everything.',
+    timestamp: 'Yesterday',
+  },
+  {
+    id: 'post-6',
+    authorName: 'Theo Alvarez',
+    authorAvatarUrl:
+      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&w=160&h=160&q=80',
+    content:
+      'Reminder: your “unproductive day” still taught your nervous system something. Take the nap without guilt.',
+    timestamp: '2d ago',
+  },
 ];
 
 export const usePosts = () => {

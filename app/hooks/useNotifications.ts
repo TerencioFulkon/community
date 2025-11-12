@@ -20,6 +20,24 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     description: 'The space hit 150 members. You unlocked a “Comfort Curator” badge.',
     timestamp: '3h ago',
   },
+  {
+    id: 'notification-4',
+    title: 'Quiet timer sent',
+    description: 'Theo shared a 25/5 focus timer script with you in Hyperfocus Lab.',
+    timestamp: '5h ago',
+  },
+  {
+    id: 'notification-5',
+    title: 'Masking check-in',
+    description: 'Masked & Unmasked posted “What helps you decompress?” and mentioned you.',
+    timestamp: 'Yesterday',
+  },
+  {
+    id: 'notification-6',
+    title: 'New saved resource',
+    description: '“Sensory Pause Ritual” was bookmarked by 23 members this morning.',
+    timestamp: '2d ago',
+  },
 ];
 
 export const useNotifications = () => {

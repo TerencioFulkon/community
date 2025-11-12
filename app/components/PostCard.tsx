@@ -25,7 +25,7 @@ const PostCardComponent: React.FC<PostCardProps> = ({
             accessibilityLabel={`Avatar for ${authorName}`}
           />
           <VStack space="$1">
-            <Text size="md" color="$textLight0" fontWeight="$semibold">
+            <Text size="md" color="$text0" fontWeight="$semibold">
               {authorName}
             </Text>
             <Text size="sm" color="$textLight500">

@@ -20,6 +20,24 @@ const MOCK_SPACES: SpaceItem[] = [
     description: 'Talk through identity, safety, and how we decompress after masking all day.',
     memberCount: 76,
   },
+  {
+    id: 'space-4',
+    name: 'Low-Stim Socials',
+    description: 'Plan museum mornings, swap café reviews, and find gentle hangout buddies.',
+    memberCount: 112,
+  },
+  {
+    id: 'space-5',
+    name: 'Hyperfocus Lab',
+    description: 'Share deep-dives, “info dump” threads, and celebrate special interests loudly.',
+    memberCount: 67,
+  },
+  {
+    id: 'space-6',
+    name: 'Systems Test Kitchen',
+    description: 'Experiment with planners, habit stacks, and automation without judgment.',
+    memberCount: 83,
+  },
 ];
 
 export const useSpaces = () => {
