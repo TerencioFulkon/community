@@ -23,8 +23,6 @@ const DEFAULT_EMPTY = (
 
 const DEFAULT_FOOTER = null;
 
-const CARD_SPACING = '$4';
-
 const FeedListComponent = <T,>({
   data,
   renderItem,
@@ -35,17 +33,16 @@ const FeedListComponent = <T,>({
   ListEmptyComponent,
   ListFooterComponent = null,
 }: FeedListProps<T>) => {
-  const Separator = React.useCallback(() => <Box h={CARD_SPACING} />, []);
-
   const shouldShowFooter = !!onEndReached && data.length > 0;
 
   return (
     <Box flex={1} alignItems="center">
-      <Box w="$full">
+      <Box w="$full" flex={1}>
         <FlatList<T>
           data={data}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
+          ItemSeparatorComponent={undefined}
           refreshing={refreshing}
           onRefresh={onRefresh}
           onEndReached={onEndReached}
@@ -54,6 +51,7 @@ const FeedListComponent = <T,>({
             shouldShowFooter ? ListFooterComponent ?? DEFAULT_FOOTER : null
           }
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }}
         />
       </Box>
     </Box>
