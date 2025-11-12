@@ -72,7 +72,7 @@ export const PostEngagementBar: React.FC<PostEngagementBarProps> = ({
                 accessibilityElementsHidden
                 importantForAccessibility="no"
               />
-              <Text size="sm" color={isActive ? '$text0' : '$text0'}>
+              <Text size="xs" color={isActive ? '$text0' : '$text0'}>
                 {counts[actionKey]}
               </Text>
             </HStack>
