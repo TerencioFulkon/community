@@ -1,11 +1,11 @@
-import React from 'react';
-import { HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
+import React, { useState } from 'react';
+import { Box, HStack, Text, VStack } from '@gluestack-ui/themed';
 import { ProfileAvatar } from './ProfileAvatar';
 import { PostItem } from 'app/types/feed';
 import { Card } from './common/Card';
-import { Heart, MessageCircle, Share2 } from 'lucide-react-native';
 import { CardTitleText } from './common/CardTitleText';
 import { CardFootnoteText } from './common/CardFootnoteText';
+import { PostEngagementBar } from './PostEngagementBar';
 
 export interface PostCardProps extends PostItem {}
 
@@ -17,13 +17,28 @@ const PostCardComponent: React.FC<PostCardProps> = ({
   likeCount,
   commentCount,
   shareCount,
+  isLiked,
+  hasCommented,
+  hasShared,
 }) => {
+  const [isLikedState, setIsLikedState] = useState(Boolean(isLiked));
+  const [likeCountState, setLikeCountState] = useState(likeCount);
+
+  const handleActionPress = (action: 'like' | 'comment' | 'share') => {
+    if (action === 'like') {
+      setIsLikedState((prev) => {
+        const next = !prev;
+        setLikeCountState((count) => Math.max(0, count + (next ? 1 : -1)));
+        return next;
+      });
+    }
+  };
   return (
     <Card
       accessibilityRole="summary"
       accessibilityLabel={`Post by ${authorName} at ${timestamp}`}
     >
-      <VStack space="sm">
+      <VStack space="md">
         <HStack space="sm" alignItems="center">
           <ProfileAvatar
             name={authorName}
@@ -38,44 +53,19 @@ const PostCardComponent: React.FC<PostCardProps> = ({
         <Text size="sm" color="$text0">
           {content}
         </Text>
-        <HStack space="lg" alignItems="center" pt="$1">
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={`Like ${authorName}'s post`}
-            hitSlop={8}
-          >
-            <HStack space="xs" alignItems="center">
-              <Heart size={20} color="#94A3B8" />
-              <Text size="sm" color="$textLight500">
-                {likeCount}
-              </Text>
-            </HStack>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={`Comment on ${authorName}'s post`}
-            hitSlop={8}
-          >
-            <HStack space="xs" alignItems="center">
-              <MessageCircle size={20} color="#94A3B8" />
-              <Text size="sm" color="$textLight500">
-                {commentCount}
-              </Text>
-            </HStack>
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={`Share ${authorName}'s post`}
-            hitSlop={8}
-          >
-            <HStack space="xs" alignItems="center">
-              <Share2 size={20} color="#94A3B8" />
-              <Text size="sm" color="$textLight500">
-                {shareCount}
-              </Text>
-            </HStack>
-          </Pressable>
-        </HStack>
+        <Box borderBottomWidth="$1" borderBottomColor="$backgroundLight100" />
+        <PostEngagementBar
+          authorName={authorName}
+          likeCount={likeCountState}
+          commentCount={commentCount}
+          shareCount={shareCount}
+          activeActions={{
+            like: isLikedState,
+            comment: hasCommented,
+            share: hasShared,
+          }}
+          onActionPress={handleActionPress}
+        />
       </VStack>
     </Card>
   );

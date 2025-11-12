@@ -8,3 +8,4 @@ export { FeedList } from './feed/FeedList';
 export { Card } from './common/Card';
 export { CardTitleText } from './common/CardTitleText';
 export { CardFootnoteText } from './common/CardFootnoteText';
+export { PostEngagementBar } from './PostEngagementBar';

@@ -7,6 +7,9 @@ export interface PostItem {
   likeCount: number;
   commentCount: number;
   shareCount: number;
+  isLiked?: boolean;
+  hasCommented?: boolean;
+  hasShared?: boolean;
 }
 
 export interface SpaceItem {
