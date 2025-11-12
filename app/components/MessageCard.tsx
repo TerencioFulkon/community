@@ -1,10 +1,11 @@
 import React from 'react';
-import { HStack, Text, VStack } from '@gluestack-ui/themed';
+import { HStack, VStack } from '@gluestack-ui/themed';
 import { MessageItem } from 'app/types/feed';
 import { ProfileAvatar } from './ProfileAvatar';
 import { Card } from './common/Card';
 import { CardTitleText } from './common/CardTitleText';
 import { CardFootnoteText } from './common/CardFootnoteText';
+import { CardParagraph } from './common/CardParagraph';
 
 export interface MessageCardProps extends MessageItem {}
 
@@ -29,9 +30,7 @@ const MessageCardComponent: React.FC<MessageCardProps> = ({
           <CardTitleText flex={1}>{senderName}</CardTitleText>
           <CardFootnoteText>{timestamp}</CardFootnoteText>
         </HStack>
-        <Text size="sm" color="$textLight500" numberOfLines={2}>
-          {preview}
-        </Text>
+        <CardParagraph numberOfLines={2}>{preview}</CardParagraph>
       </VStack>
     </HStack>
   </Card>

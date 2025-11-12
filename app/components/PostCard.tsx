@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Box, HStack, Text, VStack } from '@gluestack-ui/themed';
+import { Box, HStack, VStack } from '@gluestack-ui/themed';
 import { ProfileAvatar } from './ProfileAvatar';
 import { PostItem } from 'app/types/feed';
 import { Card } from './common/Card';
 import { CardTitleText } from './common/CardTitleText';
 import { CardFootnoteText } from './common/CardFootnoteText';
 import { PostEngagementBar } from './PostEngagementBar';
+import { CardParagraph } from './common/CardParagraph';
 
 export interface PostCardProps extends PostItem {}
 
@@ -50,9 +51,7 @@ const PostCardComponent: React.FC<PostCardProps> = ({
             <CardFootnoteText>{timestamp}</CardFootnoteText>
           </VStack>
         </HStack>
-        <Text size="sm" color="$textLight500">
-          {content}
-        </Text>
+        <CardParagraph>{content}</CardParagraph>
         <PostEngagementBar
           authorName={authorName}
           likeCount={likeCountState}

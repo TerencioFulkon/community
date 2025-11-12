@@ -1,10 +1,11 @@
 import React from 'react';
-import { Box, HStack, Icon, Image, Text, VStack } from '@gluestack-ui/themed';
+import { Box, HStack, Icon, Image, VStack } from '@gluestack-ui/themed';
 import { SpaceItem } from 'app/types/feed';
 import { Card } from './common/Card';
 import { Hash } from 'lucide-react-native';
 import { CardTitleText } from './common/CardTitleText';
 import { CardFootnoteText } from './common/CardFootnoteText';
+import { CardParagraph } from './common/CardParagraph';
 
 export interface SpaceCardProps extends SpaceItem {}
 
@@ -41,9 +42,7 @@ const SpaceCardComponent: React.FC<SpaceCardProps> = ({
       )}
       <VStack space="sm" flex={1}>
         <CardTitleText>{name}</CardTitleText>
-        <Text size="sm" color="$textLight500">
-          {description}
-        </Text>
+        <CardParagraph>{description}</CardParagraph>
         <CardFootnoteText>{memberCount.toLocaleString()} members</CardFootnoteText>
       </VStack>
     </HStack>

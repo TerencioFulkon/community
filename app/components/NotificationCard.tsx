@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, VStack } from '@gluestack-ui/themed';
+import { VStack } from '@gluestack-ui/themed';
 import { NotificationItem } from 'app/types/feed';
 import { Card } from './common/Card';
 import { CardTitleText } from './common/CardTitleText';
 import { CardFootnoteText } from './common/CardFootnoteText';
+import { CardParagraph } from './common/CardParagraph';
 
 export interface NotificationCardProps extends NotificationItem {}
 
@@ -18,9 +19,7 @@ const NotificationCardComponent: React.FC<NotificationCardProps> = ({
   >
     <VStack space="sm">
       <CardTitleText>{title}</CardTitleText>
-      <Text size="sm" color="$textLight500">
-        {description}
-      </Text>
+      <CardParagraph>{description}</CardParagraph>
       <CardFootnoteText>{timestamp}</CardFootnoteText>
     </VStack>
   </Card>
