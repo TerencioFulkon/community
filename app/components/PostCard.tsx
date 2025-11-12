@@ -38,14 +38,14 @@ const PostCardComponent: React.FC<PostCardProps> = ({
         <Text size="sm" color="$text0">
           {content}
         </Text>
-        <HStack space="sm" alignItems="center" pt="$1">
+        <HStack space="lg" alignItems="center" pt="$1">
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={`Like ${authorName}'s post`}
             hitSlop={8}
           >
-            <HStack space="sm" alignItems="center">
-              <Heart size={18} color="#94A3B8" />
+            <HStack space="xs" alignItems="center">
+              <Heart size={20} color="#94A3B8" />
               <Text size="sm" color="$textLight500">
                 {likeCount}
               </Text>
@@ -56,8 +56,8 @@ const PostCardComponent: React.FC<PostCardProps> = ({
             accessibilityLabel={`Comment on ${authorName}'s post`}
             hitSlop={8}
           >
-            <HStack space="sm" alignItems="center">
-              <MessageCircle size={18} color="#94A3B8" />
+            <HStack space="xs" alignItems="center">
+              <MessageCircle size={20} color="#94A3B8" />
               <Text size="sm" color="$textLight500">
                 {commentCount}
               </Text>
@@ -68,8 +68,8 @@ const PostCardComponent: React.FC<PostCardProps> = ({
             accessibilityLabel={`Share ${authorName}'s post`}
             hitSlop={8}
           >
-            <HStack space="sm" alignItems="center">
-              <Share2 size={18} color="#94A3B8" />
+            <HStack space="xs" alignItems="center">
+              <Share2 size={20} color="#94A3B8" />
               <Text size="sm" color="$textLight500">
                 {shareCount}
               </Text>
