@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { NotificationItem } from 'app/types/feed';
 
 const MOCK_NOTIFICATIONS: NotificationItem[] = [
@@ -41,15 +41,15 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
 ];
 
 export const useNotifications = () => {
-  const [data, setData] = useState<NotificationItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<NotificationItem[]>(MOCK_NOTIFICATIONS);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   const fetchNotifications = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((resolve) => setTimeout(resolve, 150));
       setData(MOCK_NOTIFICATIONS);
     } catch (err) {
       setError(err as Error);
@@ -57,10 +57,6 @@ export const useNotifications = () => {
       setIsLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    fetchNotifications();
-  }, [fetchNotifications]);
 
   const refresh = useCallback(() => {
     fetchNotifications();

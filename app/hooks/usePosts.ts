@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { PostItem } from 'app/types/feed';
 
 const MOCK_POSTS: PostItem[] = [
@@ -77,8 +77,8 @@ const MOCK_POSTS: PostItem[] = [
 ];
 
 export const usePosts = () => {
-  const [data, setData] = useState<PostItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<PostItem[]>(MOCK_POSTS);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   const fetchPosts = useCallback(async () => {
@@ -86,7 +86,7 @@ export const usePosts = () => {
       setIsLoading(true);
       setError(null);
       // Placeholder for Supabase call
-      await new Promise((resolve) => setTimeout(resolve, 400));
+      await new Promise((resolve) => setTimeout(resolve, 150));
       setData(MOCK_POSTS);
     } catch (err) {
       setError(err as Error);
@@ -94,10 +94,6 @@ export const usePosts = () => {
       setIsLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
 
   const refresh = useCallback(() => {
     fetchPosts();

@@ -8,7 +8,7 @@ export const Card: React.FC<CardProps> = ({ children, ...props }) => (
   <Box
     bg="$backgroundLight0"
     borderBottomWidth="$1"
-    borderBottomColor="$backgroundLight200"
+    borderBottomColor="$backgroundLight100"
     px="$5"
     py="$5"
     rounded="$none"

@@ -50,10 +50,9 @@ const PostCardComponent: React.FC<PostCardProps> = ({
             <CardFootnoteText>{timestamp}</CardFootnoteText>
           </VStack>
         </HStack>
-        <Text size="sm" color="$text0">
+        <Text size="sm" color="$textLight500">
           {content}
         </Text>
-        <Box borderBottomWidth="$1" borderBottomColor="$backgroundLight100" />
         <PostEngagementBar
           authorName={authorName}
           likeCount={likeCountState}

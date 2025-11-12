@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SpaceItem } from 'app/types/feed';
 
 const MOCK_SPACES: SpaceItem[] = [
@@ -47,15 +47,15 @@ const MOCK_SPACES: SpaceItem[] = [
 ];
 
 export const useSpaces = () => {
-  const [data, setData] = useState<SpaceItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<SpaceItem[]>(MOCK_SPACES);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   const fetchSpaces = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
-      await new Promise((resolve) => setTimeout(resolve, 400));
+      await new Promise((resolve) => setTimeout(resolve, 150));
       setData(MOCK_SPACES);
     } catch (err) {
       setError(err as Error);
@@ -63,10 +63,6 @@ export const useSpaces = () => {
       setIsLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    fetchSpaces();
-  }, [fetchSpaces]);
 
   const refresh = useCallback(() => {
     fetchSpaces();

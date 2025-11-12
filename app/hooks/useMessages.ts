@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { MessageItem } from 'app/types/feed';
 
 const MOCK_MESSAGES: MessageItem[] = [
@@ -58,15 +58,15 @@ const MOCK_MESSAGES: MessageItem[] = [
 ];
 
 export const useMessages = () => {
-  const [data, setData] = useState<MessageItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<MessageItem[]>(MOCK_MESSAGES);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   const fetchMessages = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((resolve) => setTimeout(resolve, 150));
       setData(MOCK_MESSAGES);
     } catch (err) {
       setError(err as Error);
@@ -74,10 +74,6 @@ export const useMessages = () => {
       setIsLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    fetchMessages();
-  }, [fetchMessages]);
 
   const refresh = useCallback(() => {
     fetchMessages();
