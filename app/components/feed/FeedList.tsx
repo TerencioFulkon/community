@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import { Box, Text } from '@gluestack-ui/themed';
+import { useCollapsibleHeader } from 'app/contexts/CollapsibleHeaderContext';
 
 export interface FeedListProps<T> {
   data: T[];
@@ -34,6 +35,7 @@ const FeedListComponent = <T,>({
   ListFooterComponent = null,
 }: FeedListProps<T>) => {
   const shouldShowFooter = !!onEndReached && data.length > 0;
+  const { onScroll, scrollEventThrottle } = useCollapsibleHeader();
 
   return (
     <Box flex={1} alignItems="center">
@@ -46,6 +48,8 @@ const FeedListComponent = <T,>({
           refreshing={refreshing}
           onRefresh={onRefresh}
           onEndReached={onEndReached}
+          onScroll={onScroll}
+          scrollEventThrottle={onScroll ? scrollEventThrottle ?? 16 : undefined}
           ListEmptyComponent={ListEmptyComponent ?? DEFAULT_EMPTY}
           ListFooterComponent={
             shouldShowFooter ? ListFooterComponent ?? DEFAULT_FOOTER : null
