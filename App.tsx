@@ -9,9 +9,9 @@ import {
   PostScreen,
   MessagesScreen,
   NotificationsScreen,
-} from './app/screens';
-import { TabKey } from './app/layouts/TabBar';
-import { ScreenProps } from './app/screens/types';
+} from 'app/screens';
+import { TabKey } from 'app/layouts/TabBar';
+import { ScreenProps } from 'app/screens/types';
 
 const SCREEN_COMPONENTS: Record<TabKey, React.FC<ScreenProps>> = {
   home: HomeScreen,

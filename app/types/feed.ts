@@ -4,6 +4,9 @@ export interface PostItem {
   authorAvatarUrl?: string;
   content: string;
   timestamp: string;
+  likeCount: number;
+  commentCount: number;
+  shareCount: number;
 }
 
 export interface SpaceItem {

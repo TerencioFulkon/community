@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = ({ title, avatarUrl, userName }) =>
       bg="$backgroundLight0"
       borderBottomWidth="$1"
       borderColor="$backgroundLight200"
-      px="$6"
+      px="$5"
       py="$5"
     >
       <HStack alignItems="center" justifyContent="space-between">

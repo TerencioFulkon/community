@@ -10,6 +10,9 @@ const MOCK_POSTS: PostItem[] = [
     content:
       'Shared a low-stim “pause ritual” I use before meetings: chew ginger candy, 5-count breathing, and a weighted scarf. It grounded me again today—passing it on. 💙',
     timestamp: '2h ago',
+    likeCount: 42,
+    commentCount: 9,
+    shareCount: 6,
   },
   {
     id: 'post-2',
@@ -19,6 +22,9 @@ const MOCK_POSTS: PostItem[] = [
     content:
       'Sensory win: swapped my desk lamp for a sunrise bulb and my headaches dropped instantly. Lighting is underrated co-regulation.',
     timestamp: '4h ago',
+    likeCount: 28,
+    commentCount: 4,
+    shareCount: 1,
   },
   {
     id: 'post-3',
@@ -28,6 +34,9 @@ const MOCK_POSTS: PostItem[] = [
     content:
       'Hyperfocus journal entry: spent three hours designing a stimming-friendly keychain. Posting the template if anyone else wants to fidget in peace.',
     timestamp: '6h ago',
+    likeCount: 65,
+    commentCount: 13,
+    shareCount: 8,
   },
   {
     id: 'post-4',
@@ -37,6 +46,9 @@ const MOCK_POSTS: PostItem[] = [
     content:
       'Shared my “quiet commute kit”: bone-conduction headphones, sunglasses, and peppermint oil for crowded trains.',
     timestamp: '8h ago',
+    likeCount: 19,
+    commentCount: 2,
+    shareCount: 0,
   },
   {
     id: 'post-5',
@@ -46,6 +58,9 @@ const MOCK_POSTS: PostItem[] = [
     content:
       'Built a notion template to track sensory energy. Mapping bright-light days vs. quiet days changed everything.',
     timestamp: 'Yesterday',
+    likeCount: 51,
+    commentCount: 12,
+    shareCount: 5,
   },
   {
     id: 'post-6',
@@ -55,6 +70,9 @@ const MOCK_POSTS: PostItem[] = [
     content:
       'Reminder: your “unproductive day” still taught your nervous system something. Take the nap without guilt.',
     timestamp: '2d ago',
+    likeCount: 73,
+    commentCount: 18,
+    shareCount: 10,
   },
 ];
 

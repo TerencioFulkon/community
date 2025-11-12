@@ -3,6 +3,8 @@ import { Box, HStack, Icon, Image, Text, VStack } from '@gluestack-ui/themed';
 import { SpaceItem } from 'app/types/feed';
 import { Card } from './common/Card';
 import { Hash } from 'lucide-react-native';
+import { CardTitleText } from './common/CardTitleText';
+import { CardFootnoteText } from './common/CardFootnoteText';
 
 export interface SpaceCardProps extends SpaceItem {}
 
@@ -16,7 +18,7 @@ const SpaceCardComponent: React.FC<SpaceCardProps> = ({
     accessibilityRole="summary"
     accessibilityLabel={`${name} space with ${memberCount} members`}
   >
-    <HStack space="$4" alignItems="center" justifyContent="space-between">
+    <HStack space="sm" alignItems="center" justifyContent="space-between">
       {iconUrl ? (
         <Image
           source={{ uri: iconUrl }}
@@ -37,16 +39,12 @@ const SpaceCardComponent: React.FC<SpaceCardProps> = ({
           <Icon as={Hash} size="lg" color="$textLight400" />
         </Box>
       )}
-      <VStack space="$1" flex={1}>
-        <Text size="md" fontWeight="$semibold" color="$textLight0">
-          {name}
-        </Text>
+      <VStack space="sm" flex={1}>
+        <CardTitleText>{name}</CardTitleText>
         <Text size="sm" color="$textLight500">
           {description}
         </Text>
-        <Text size="xs" color="$textLight400">
-          {memberCount.toLocaleString()} members
-        </Text>
+        <CardFootnoteText>{memberCount.toLocaleString()} members</CardFootnoteText>
       </VStack>
     </HStack>
   </Card>

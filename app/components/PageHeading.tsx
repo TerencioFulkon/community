@@ -6,7 +6,7 @@ export interface PageHeadingProps {
 }
 
 export const PageHeading: React.FC<PageHeadingProps> = ({ children }) => (
-  <Heading size="xl" color="$text0">
+  <Heading size="lg" color="$text0">
     {children}
   </Heading>
 );

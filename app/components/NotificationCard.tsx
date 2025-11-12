@@ -2,6 +2,8 @@ import React from 'react';
 import { Text, VStack } from '@gluestack-ui/themed';
 import { NotificationItem } from 'app/types/feed';
 import { Card } from './common/Card';
+import { CardTitleText } from './common/CardTitleText';
+import { CardFootnoteText } from './common/CardFootnoteText';
 
 export interface NotificationCardProps extends NotificationItem {}
 
@@ -14,16 +16,12 @@ const NotificationCardComponent: React.FC<NotificationCardProps> = ({
     accessibilityRole="summary"
     accessibilityLabel={`Notification: ${title} at ${timestamp}`}
   >
-    <VStack space="$2">
-      <Text size="md" fontWeight="$semibold" color="$textLight0">
-        {title}
-      </Text>
+    <VStack space="sm">
+      <CardTitleText>{title}</CardTitleText>
       <Text size="sm" color="$textLight500">
         {description}
       </Text>
-      <Text size="xs" color="$textLight400">
-        {timestamp}
-      </Text>
+      <CardFootnoteText>{timestamp}</CardFootnoteText>
     </VStack>
   </Card>
 );
