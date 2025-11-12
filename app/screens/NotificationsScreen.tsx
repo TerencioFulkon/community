@@ -1,17 +1,34 @@
-import React from 'react';
-import { Box, Text, VStack } from '@gluestack-ui/themed';
-import { PageHeading } from 'app/components';
+import React, { useCallback } from 'react';
+import { FeedList, NotificationCard } from 'app/components';
+import { useNotifications } from 'app/hooks';
+import { ScreenContainer } from 'app/layouts';
+import { NotificationItem } from 'app/types/feed';
+import { ScreenProps } from './types';
 
-export const NotificationsScreen: React.FC = () => {
+export const NotificationsScreen: React.FC<ScreenProps> = ({ activeTab, onTabPress }) => {
+  const { data, isLoading, refresh, loadMore } = useNotifications();
+
+  const renderItem = useCallback(
+    ({ item }: { item: NotificationItem }) => <NotificationCard {...item} />,
+    []
+  );
+  const keyExtractor = useCallback((item: NotificationItem) => item.id, []);
+
   return (
-    <Box flex={1} px="$6" py="$6" bg="$backgroundLight50">
-      <VStack space="$3">
-        <PageHeading>Notifications</PageHeading>
-        <Text size="md" color="$textLight500">
-          Review gentle alerts about new posts, replies, and community updates here.
-        </Text>
-      </VStack>
-    </Box>
+    <ScreenContainer
+      title="Notifications"
+      activeTab={activeTab}
+      onTabPress={onTabPress}
+    >
+      <FeedList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        refreshing={isLoading}
+        onRefresh={refresh}
+        onEndReached={loadMore}
+      />
+    </ScreenContainer>
   );
 };
 

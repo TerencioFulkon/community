@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
-import { Box, HStack, Text } from '@gluestack-ui/themed';
+import React from 'react';
+import { Box, HStack } from '@gluestack-ui/themed';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ProfileAvatar } from 'app/components';
+import { PageHeading, ProfileAvatar } from 'app/components';
 
 export interface HeaderProps {
   title: string;
@@ -9,17 +9,9 @@ export interface HeaderProps {
   userName?: string;
 }
 
-const getInitials = (name?: string): string => {
-  if (!name) return 'NA';
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length === 0) return 'NA';
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return `${parts[0][0] ?? ''}${parts[parts.length - 1][0] ?? ''}`.toUpperCase();
-};
-
 export const Header: React.FC<HeaderProps> = ({ title, avatarUrl, userName }) => {
   const insets = useSafeAreaInsets();
-  const initials = useMemo(() => getInitials(userName), [userName]);
+  const topPadding = insets.top > 0 ? insets.top + 12 : 24;
 
   return (
     <Box
@@ -27,13 +19,11 @@ export const Header: React.FC<HeaderProps> = ({ title, avatarUrl, userName }) =>
       borderBottomWidth="$1"
       borderColor="$backgroundLight200"
       px="$6"
-      pt="$4"
+      pt={topPadding}
       pb="$4"
     >
       <HStack alignItems="center" justifyContent="space-between">
-        <Text size="lg" fontWeight="$bold" color="$textLight0">
-          {title}
-        </Text>
+        <PageHeading>{title}</PageHeading>
         <ProfileAvatar name={userName} avatarUrl={avatarUrl} accessibilityLabel="User profile" />
       </HStack>
     </Box>

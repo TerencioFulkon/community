@@ -27,10 +27,9 @@ export const ProfileAvatar: React.FC<ProfileAvatarProps> = ({
   return (
     <Avatar size={size} accessibilityLabel={accessibilityLabel}>
       {avatarUrl ? <AvatarImage source={{ uri: avatarUrl }} /> : null}
-      <AvatarFallbackText>{initials}</AvatarFallbackText>
+      {!avatarUrl ? <AvatarFallbackText>{initials}</AvatarFallbackText> : null}
     </Avatar>
   );
 };
 
 export default ProfileAvatar;
-

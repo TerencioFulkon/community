@@ -30,8 +30,7 @@ export const TabBar: React.FC<TabBarProps> = ({ activeKey = 'home', onTabPress }
       borderTopWidth="$1"
       borderColor="$backgroundLight200"
       px="$6"
-      pt="$4"
-      pb="$4"
+      py="$6"
     >
       <HStack alignItems="center" justifyContent="space-between">
         {TAB_ITEMS.map((tab) => {
@@ -40,6 +39,7 @@ export const TabBar: React.FC<TabBarProps> = ({ activeKey = 'home', onTabPress }
           return (
             <Pressable
               key={tab.key}
+              flex={1}
               alignItems="center"
               accessibilityRole="button"
               accessibilityLabel={`${tab.label} tab`}

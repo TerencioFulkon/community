@@ -1,19 +1,26 @@
 import React from 'react';
-import { Box, Text, VStack } from '@gluestack-ui/themed';
-import { PageHeading } from 'app/components';
+import { Box, Text } from '@gluestack-ui/themed';
+import { ScreenContainer } from 'app/layouts';
+import { ScreenProps } from './types';
 
-export const PostScreen: React.FC = () => {
-  return (
-    <Box flex={1} px="$6" py="$6" bg="$backgroundLight50">
-      <VStack space="$3">
-        <PageHeading>Create a Post</PageHeading>
-        <Text size="md" color="$textLight500">
-          Capture supportive thoughts, questions, or resources to share with the community.
-        </Text>
-      </VStack>
+export const PostScreen: React.FC<ScreenProps> = ({ activeTab, onTabPress }) => (
+  <ScreenContainer title="Post" activeTab={activeTab} onTabPress={onTabPress}>
+    <Box
+      flex={1}
+      bg="$backgroundLight50"
+      borderWidth="$1"
+      borderColor="$backgroundLight200"
+      rounded="$lg"
+      px="$5"
+      py="$6"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Text size="md" color="$textLight400" textAlign="center">
+        Post creation UI coming soon.
+      </Text>
     </Box>
-  );
-};
+  </ScreenContainer>
+);
 
 export default PostScreen;
-

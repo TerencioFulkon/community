@@ -1,17 +1,30 @@
-import React from 'react';
-import { Box, Text, VStack } from '@gluestack-ui/themed';
-import { PageHeading } from 'app/components';
+import React, { useCallback } from 'react';
+import { FeedList, MessageCard } from 'app/components';
+import { useMessages } from 'app/hooks';
+import { ScreenContainer } from 'app/layouts';
+import { MessageItem } from 'app/types/feed';
+import { ScreenProps } from './types';
 
-export const MessagesScreen: React.FC = () => {
+export const MessagesScreen: React.FC<ScreenProps> = ({ activeTab, onTabPress }) => {
+  const { data, isLoading, refresh, loadMore } = useMessages();
+
+  const renderItem = useCallback(
+    ({ item }: { item: MessageItem }) => <MessageCard {...item} />,
+    []
+  );
+  const keyExtractor = useCallback((item: MessageItem) => item.id, []);
+
   return (
-    <Box flex={1} px="$6" py="$6" bg="$backgroundLight50">
-      <VStack space="$3">
-        <PageHeading>Messages</PageHeading>
-        <Text size="md" color="$textLight500">
-          Stay connected with one-on-one conversations and thoughtful check-ins.
-        </Text>
-      </VStack>
-    </Box>
+    <ScreenContainer title="Messages" activeTab={activeTab} onTabPress={onTabPress}>
+      <FeedList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        refreshing={isLoading}
+        onRefresh={refresh}
+        onEndReached={loadMore}
+      />
+    </ScreenContainer>
   );
 };
 

@@ -1,17 +1,27 @@
-import React from 'react';
-import { Box, Text, VStack } from '@gluestack-ui/themed';
-import { PageHeading } from 'app/components';
+import React, { useCallback } from 'react';
+import { FeedList, SpaceCard } from 'app/components';
+import { useSpaces } from 'app/hooks';
+import { ScreenContainer } from 'app/layouts';
+import { SpaceItem } from 'app/types/feed';
+import { ScreenProps } from './types';
 
-export const SpacesScreen: React.FC = () => {
+export const SpacesScreen: React.FC<ScreenProps> = ({ activeTab, onTabPress }) => {
+  const { data, isLoading, refresh, loadMore } = useSpaces();
+
+  const renderItem = useCallback(({ item }: { item: SpaceItem }) => <SpaceCard {...item} />, []);
+  const keyExtractor = useCallback((item: SpaceItem) => item.id, []);
+
   return (
-    <Box flex={1} px="$6" py="$6" bg="$backgroundLight50">
-      <VStack space="$3">
-        <PageHeading>Spaces</PageHeading>
-        <Text size="md" color="$textLight500">
-          Curate calming spaces and shared resources for the community here.
-        </Text>
-      </VStack>
-    </Box>
+    <ScreenContainer title="Spaces" activeTab={activeTab} onTabPress={onTabPress}>
+      <FeedList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        refreshing={isLoading}
+        onRefresh={refresh}
+        onEndReached={loadMore}
+      />
+    </ScreenContainer>
   );
 };
 
