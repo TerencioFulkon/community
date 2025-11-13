@@ -34,4 +34,8 @@ export interface NotificationItem {
   title: string;
   description: string;
   timestamp: string;
+  actorName?: string;
+  actorAvatarUrl?: string;
+  spaceName?: string;
+  spaceIconUrl?: string;
 }

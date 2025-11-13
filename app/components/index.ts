@@ -10,3 +10,4 @@ export { CardTitleText } from './common/CardTitleText';
 export { CardFootnoteText } from './common/CardFootnoteText';
 export { PostEngagementBar } from './PostEngagementBar';
 export { CardParagraph } from './common/CardParagraph';
+export { SpaceIcon } from './SpaceIcon';

@@ -1,29 +1,58 @@
 import React from 'react';
-import { VStack } from '@gluestack-ui/themed';
+import { HStack, VStack } from '@gluestack-ui/themed';
 import { NotificationItem } from 'app/types/feed';
 import { Card } from './common/Card';
-import { CardTitleText } from './common/CardTitleText';
 import { CardFootnoteText } from './common/CardFootnoteText';
 import { CardParagraph } from './common/CardParagraph';
+import { ProfileAvatar } from './ProfileAvatar';
+import { SpaceIcon } from './SpaceIcon';
 
 export interface NotificationCardProps extends NotificationItem {}
 
 const NotificationCardComponent: React.FC<NotificationCardProps> = ({
-  title,
   description,
   timestamp,
-}) => (
-  <Card
-    accessibilityRole="summary"
-    accessibilityLabel={`Notification: ${title} at ${timestamp}`}
-  >
-    <VStack space="sm">
-      <CardTitleText>{title}</CardTitleText>
-      <CardParagraph>{description}</CardParagraph>
-      <CardFootnoteText>{timestamp}</CardFootnoteText>
-    </VStack>
-  </Card>
-);
+  actorName,
+  actorAvatarUrl,
+  spaceName,
+  spaceIconUrl,
+}) => {
+  const hasActor = Boolean(actorName);
+  const hasSpace = Boolean(spaceName || spaceIconUrl);
+
+  return (
+    <Card
+      accessibilityRole="summary"
+      accessibilityLabel={`Notification at ${timestamp}`}
+    >
+      <VStack space="sm">
+        {(hasActor || hasSpace) ? (
+          <HStack space="xs" alignItems="flex-start" justifyContent="space-between">
+            {hasActor ? (
+              <ProfileAvatar
+                name={actorName}
+                avatarUrl={actorAvatarUrl}
+                accessibilityLabel={`Avatar for ${actorName}`}
+                size="md"
+              />
+            ) : (
+              <SpaceIcon iconUrl={spaceIconUrl} name={spaceName} size="md" />
+            )}
+            <CardParagraph flex={1} ml="$3">
+              {description}
+            </CardParagraph>
+            <CardFootnoteText>{timestamp}</CardFootnoteText>
+          </HStack>
+        ) : (
+          <HStack alignItems="flex-start" justifyContent="space-between" space="sm">
+            <CardParagraph flex={1}>{description}</CardParagraph>
+            <CardFootnoteText>{timestamp}</CardFootnoteText>
+          </HStack>
+        )}
+      </VStack>
+    </Card>
+  );
+};
 
 export const NotificationCard = React.memo(NotificationCardComponent);
 
