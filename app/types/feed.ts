@@ -19,6 +19,7 @@ export interface SpaceItem {
   memberCount: number;
   onlineCount?: number;
   iconUrl?: string;
+  joined?: boolean;
 }
 
 export interface MessageItem {
