@@ -15,21 +15,39 @@ const PostCardComponent: React.FC<PostCardProps> = ({
   authorAvatarUrl,
   content,
   timestamp,
-  likeCount,
   commentCount,
   shareCount,
-  isLiked,
+  upvoteCount,
+  downvoteCount,
+  isUpvoted,
+  isDownvoted,
   hasCommented,
   hasShared,
 }) => {
-  const [isLikedState, setIsLikedState] = useState(Boolean(isLiked));
-  const [likeCountState, setLikeCountState] = useState(likeCount);
+  const [isUpvotedState, setIsUpvotedState] = useState(Boolean(isUpvoted));
+  const [isDownvotedState, setIsDownvotedState] = useState(Boolean(isDownvoted));
+  const [upvoteCountState, setUpvoteCountState] = useState(upvoteCount);
+  const [downvoteCountState, setDownvoteCountState] = useState(downvoteCount);
 
-  const handleActionPress = (action: 'like' | 'comment' | 'share') => {
-    if (action === 'like') {
-      setIsLikedState((prev) => {
+  const handleActionPress = (action: 'upvote' | 'downvote' | 'comment' | 'share') => {
+    if (action === 'upvote') {
+      setIsUpvotedState((prev) => {
         const next = !prev;
-        setLikeCountState((count) => Math.max(0, count + (next ? 1 : -1)));
+        setUpvoteCountState((count) => Math.max(0, count + (next ? 1 : -1)));
+        if (next && isDownvotedState) {
+          setIsDownvotedState(false);
+          setDownvoteCountState((count) => Math.max(0, count - 1));
+        }
+        return next;
+      });
+    } else if (action === 'downvote') {
+      setIsDownvotedState((prev) => {
+        const next = !prev;
+        setDownvoteCountState((count) => Math.max(0, count + (next ? 1 : -1)));
+        if (next && isUpvotedState) {
+          setIsUpvotedState(false);
+          setUpvoteCountState((count) => Math.max(0, count - 1));
+        }
         return next;
       });
     }
@@ -54,11 +72,13 @@ const PostCardComponent: React.FC<PostCardProps> = ({
         <CardParagraph>{content}</CardParagraph>
         <PostEngagementBar
           authorName={authorName}
-          likeCount={likeCountState}
+          upvoteCount={upvoteCountState}
+          downvoteCount={downvoteCountState}
           commentCount={commentCount}
           shareCount={shareCount}
           activeActions={{
-            like: isLikedState,
+            upvote: isUpvotedState,
+            downvote: isDownvotedState,
             comment: hasCommented,
             share: hasShared,
           }}

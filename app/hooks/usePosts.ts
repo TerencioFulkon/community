@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { PostItem } from 'app/types/feed';
 
 const MOCK_POSTS: PostItem[] = [
@@ -13,6 +13,11 @@ const MOCK_POSTS: PostItem[] = [
     likeCount: 42,
     commentCount: 9,
     shareCount: 6,
+    upvoteCount: 18,
+    downvoteCount: 1,
+    isLiked: true,
+    isUpvoted: true,
+    isDownvoted: false,
   },
   {
     id: 'post-2',
@@ -25,6 +30,11 @@ const MOCK_POSTS: PostItem[] = [
     likeCount: 28,
     commentCount: 4,
     shareCount: 1,
+    upvoteCount: 11,
+    downvoteCount: 0,
+    isLiked: false,
+    isUpvoted: false,
+    isDownvoted: false,
   },
   {
     id: 'post-3',
@@ -37,6 +47,11 @@ const MOCK_POSTS: PostItem[] = [
     likeCount: 65,
     commentCount: 13,
     shareCount: 8,
+    upvoteCount: 34,
+    downvoteCount: 2,
+    isLiked: true,
+    isUpvoted: true,
+    isDownvoted: false,
   },
   {
     id: 'post-4',
@@ -49,6 +64,11 @@ const MOCK_POSTS: PostItem[] = [
     likeCount: 19,
     commentCount: 2,
     shareCount: 0,
+    upvoteCount: 7,
+    downvoteCount: 1,
+    isLiked: false,
+    isUpvoted: false,
+    isDownvoted: false,
   },
   {
     id: 'post-5',
@@ -61,6 +81,11 @@ const MOCK_POSTS: PostItem[] = [
     likeCount: 51,
     commentCount: 12,
     shareCount: 5,
+    upvoteCount: 21,
+    downvoteCount: 3,
+    isLiked: false,
+    isUpvoted: false,
+    isDownvoted: false,
   },
   {
     id: 'post-6',
@@ -73,6 +98,11 @@ const MOCK_POSTS: PostItem[] = [
     likeCount: 73,
     commentCount: 18,
     shareCount: 10,
+    upvoteCount: 40,
+    downvoteCount: 4,
+    isLiked: true,
+    isUpvoted: true,
+    isDownvoted: false,
   },
 ];
 
@@ -80,6 +110,8 @@ export const usePosts = () => {
   const [data, setData] = useState<PostItem[]>(MOCK_POSTS);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const pageRef = useRef(1);
 
   const fetchPosts = useCallback(async () => {
     try {
@@ -96,12 +128,24 @@ export const usePosts = () => {
   }, []);
 
   const refresh = useCallback(() => {
+    pageRef.current = 1;
+    setData(MOCK_POSTS);
     fetchPosts();
   }, [fetchPosts]);
 
   const loadMore = useCallback(async () => {
-    // Placeholder for pagination logic
-  }, []);
+    if (isLoadingMore) return;
+    setIsLoadingMore(true);
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    const nextPage = pageRef.current + 1;
+    const nextItems = MOCK_POSTS.map((item, index) => ({
+      ...item,
+      id: `${item.id}-page-${nextPage}-${index}`,
+    }));
+    setData((prev) => [...prev, ...nextItems]);
+    pageRef.current = nextPage;
+    setIsLoadingMore(false);
+  }, [isLoadingMore]);
 
   return { data, isLoading, error, refresh, loadMore };
 };

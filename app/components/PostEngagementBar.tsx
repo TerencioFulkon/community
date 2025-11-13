@@ -1,59 +1,75 @@
 import React from 'react';
 import { HStack, Pressable, Text } from '@gluestack-ui/themed';
-import { Heart, MessageCircle, Share2 } from 'lucide-react-native';
+import { MessageCircle, Share2, ArrowBigUp, ArrowBigDown } from 'lucide-react-native';
 
-type ActionKey = 'like' | 'comment' | 'share';
+type ActionKey = 'upvote' | 'downvote' | 'comment' | 'share';
 
 export interface PostEngagementBarProps {
   authorName: string;
-  likeCount: number;
   commentCount: number;
   shareCount: number;
+  upvoteCount: number;
+  downvoteCount: number;
   onActionPress?: (action: ActionKey) => void;
   activeActions?: Partial<Record<ActionKey, boolean>>;
 }
 
 const ACTION_CONFIG = {
-  like: {
-    icon: Heart,
-    label: (author: string) => `Like ${author}'s post`,
+  upvote: {
+    icon: ArrowBigUp,
+    label: (author: string) => `Upvote ${author}'s post`,
+    size: 26,
+  },
+  downvote: {
+    icon: ArrowBigDown,
+    label: (author: string) => `Downvote ${author}'s post`,
+    size: 26,
   },
   comment: {
     icon: MessageCircle,
     label: (author: string) => `Comment on ${author}'s post`,
+    size: 22,
   },
   share: {
     icon: Share2,
     label: (author: string) => `Share ${author}'s post`,
+    size: 22,
   },
 } as const;
 
 export const PostEngagementBar: React.FC<PostEngagementBarProps> = ({
   authorName,
-  likeCount,
+  upvoteCount,
+  downvoteCount,
   commentCount,
   shareCount,
   onActionPress,
   activeActions,
 }) => {
   const defaultStrokeColor = '#111828';
-  const heartActiveColor = '#DC2626';
   const counts: Record<ActionKey, number> = {
-    like: likeCount,
+    upvote: upvoteCount,
+    downvote: downvoteCount,
     comment: commentCount,
     share: shareCount,
   };
 
   return (
-    <HStack space="4xl"alignItems="center" pt="$1">
+    <HStack space="4xl" alignItems="center" pt="$1">
       {(Object.keys(ACTION_CONFIG) as ActionKey[]).map((actionKey) => {
         const action = ACTION_CONFIG[actionKey];
         const IconComponent = action.icon;
         const isActive = Boolean(activeActions?.[actionKey]);
-        const strokeColor =
-          actionKey === 'like' && isActive ? heartActiveColor : defaultStrokeColor;
-        const iconFill =
-          actionKey === 'like' && isActive ? heartActiveColor : 'none';
+        let strokeColor = defaultStrokeColor;
+        let iconFill = 'none';
+
+        if (actionKey === 'upvote') {
+          strokeColor = isActive ? '#22c55e' : defaultStrokeColor;
+          iconFill = isActive ? '#22c55e' : 'none';
+        } else if (actionKey === 'downvote') {
+          strokeColor = isActive ? '#EA4335' : defaultStrokeColor;
+          iconFill = isActive ? '#EA4335' : 'none';
+        }
 
         return (
           <Pressable
@@ -65,7 +81,7 @@ export const PostEngagementBar: React.FC<PostEngagementBarProps> = ({
           >
             <HStack space="xs" alignItems="center">
               <IconComponent
-                size={22}
+                size={action.size}
                 color={strokeColor}
                 strokeWidth={1.6}
                 fill={iconFill}

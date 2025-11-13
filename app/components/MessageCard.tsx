@@ -6,6 +6,7 @@ import { Card } from './common/Card';
 import { CardTitleText } from './common/CardTitleText';
 import { CardFootnoteText } from './common/CardFootnoteText';
 import { CardParagraph } from './common/CardParagraph';
+import { Indicator } from './Indicator';
 
 export interface MessageCardProps extends MessageItem {}
 
@@ -14,6 +15,7 @@ const MessageCardComponent: React.FC<MessageCardProps> = ({
   senderAvatarUrl,
   preview,
   timestamp,
+  unreadMessageCount,
 }) => (
   <Card
     accessibilityRole="summary"
@@ -26,11 +28,16 @@ const MessageCardComponent: React.FC<MessageCardProps> = ({
         accessibilityLabel={`Avatar for ${senderName}`}
       />
       <VStack flex={1} space="sm">
-        <HStack justifyContent="space-between" alignItems="center">
+        <HStack justifyContent="space-between" alignItems="center" space="sm">
           <CardTitleText flex={1}>{senderName}</CardTitleText>
           <CardFootnoteText>{timestamp}</CardFootnoteText>
         </HStack>
-        <CardParagraph numberOfLines={2}>{preview}</CardParagraph>
+        <HStack alignItems="flex-start" justifyContent="space-between" space="sm">
+          <CardParagraph flex={1} numberOfLines={2}>
+            {preview}
+          </CardParagraph>
+          <Indicator value={unreadMessageCount} />
+        </HStack>
       </VStack>
     </HStack>
   </Card>

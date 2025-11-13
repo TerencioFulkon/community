@@ -7,9 +7,13 @@ export interface PostItem {
   likeCount: number;
   commentCount: number;
   shareCount: number;
+  upvoteCount: number;
+  downvoteCount: number;
   isLiked?: boolean;
   hasCommented?: boolean;
   hasShared?: boolean;
+  isUpvoted?: boolean;
+  isDownvoted?: boolean;
 }
 
 export interface SpaceItem {
@@ -20,6 +24,7 @@ export interface SpaceItem {
   onlineCount?: number;
   iconUrl?: string;
   joined?: boolean;
+  isUnread?: boolean;
 }
 
 export interface MessageItem {
@@ -28,6 +33,7 @@ export interface MessageItem {
   senderAvatarUrl?: string;
   preview: string;
   timestamp: string;
+  unreadMessageCount?: number;
 }
 
 export interface NotificationItem {
@@ -39,4 +45,6 @@ export interface NotificationItem {
   actorAvatarUrl?: string;
   spaceName?: string;
   spaceIconUrl?: string;
+  unreadMessageCount?: number;
+  isUnread?: boolean;
 }

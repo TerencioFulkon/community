@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { NotificationItem } from 'app/types/feed';
 
 const MOCK_NOTIFICATIONS: NotificationItem[] = [
@@ -10,6 +10,8 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     actorName: 'Morgan Lee',
     actorAvatarUrl:
       'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=facearea&w=160&h=160&q=80',
+    unreadMessageCount: 2,
+    isUnread: true,
   },
   {
     id: 'notification-2',
@@ -19,6 +21,7 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     spaceName: 'Executive Function Crew',
     spaceIconUrl:
       'https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=200&h=200&q=80',
+    isUnread: true,
   },
   {
     id: 'notification-3',
@@ -28,6 +31,7 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     spaceName: 'Sensory Soothers',
     spaceIconUrl:
       'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=200&h=200&q=80',
+    isUnread: false,
   },
   {
     id: 'notification-4',
@@ -37,6 +41,8 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     actorName: 'Theo Alvarez',
     actorAvatarUrl:
       'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&w=160&h=160&q=80',
+    unreadMessageCount: 4,
+    isUnread: true,
   },
   {
     id: 'notification-5',
@@ -46,6 +52,7 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     spaceName: 'Masked & Unmasked',
     spaceIconUrl:
       'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=200&h=200&q=80',
+    isUnread: false,
   },
   {
     id: 'notification-6',
@@ -55,6 +62,8 @@ const MOCK_NOTIFICATIONS: NotificationItem[] = [
     actorName: 'Alex Chen',
     actorAvatarUrl:
       'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=facearea&w=160&h=160&q=80',
+    unreadMessageCount: 1,
+    isUnread: false,
   },
 ];
 
@@ -62,6 +71,8 @@ export const useNotifications = () => {
   const [data, setData] = useState<NotificationItem[]>(MOCK_NOTIFICATIONS);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const pageRef = useRef(1);
 
   const fetchNotifications = useCallback(async () => {
     try {
@@ -77,12 +88,24 @@ export const useNotifications = () => {
   }, []);
 
   const refresh = useCallback(() => {
+    pageRef.current = 1;
+    setData(MOCK_NOTIFICATIONS);
     fetchNotifications();
   }, [fetchNotifications]);
 
   const loadMore = useCallback(async () => {
-    // Pagination placeholder
-  }, []);
+    if (isLoadingMore) return;
+    setIsLoadingMore(true);
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    const nextPage = pageRef.current + 1;
+    const nextItems = MOCK_NOTIFICATIONS.map((item, index) => ({
+      ...item,
+      id: `${item.id}-page-${nextPage}-${index}`,
+    }));
+    setData((prev) => [...prev, ...nextItems]);
+    pageRef.current = nextPage;
+    setIsLoadingMore(false);
+  }, [isLoadingMore]);
 
   return { data, isLoading, error, refresh, loadMore };
 };

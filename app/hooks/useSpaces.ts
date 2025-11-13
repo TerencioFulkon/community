@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { SpaceItem } from 'app/types/feed';
 
 const MOCK_SPACES: SpaceItem[] = [
@@ -9,6 +9,7 @@ const MOCK_SPACES: SpaceItem[] = [
     memberCount: 128,
     onlineCount: 31,
     joined: true,
+    isUnread: true,
     iconUrl: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -18,6 +19,7 @@ const MOCK_SPACES: SpaceItem[] = [
     memberCount: 94,
     onlineCount: 22,
     joined: false,
+    isUnread: false,
     iconUrl: 'https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -27,6 +29,7 @@ const MOCK_SPACES: SpaceItem[] = [
     memberCount: 76,
     onlineCount: 18,
     joined: false,
+    isUnread: true,
     iconUrl: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -36,6 +39,7 @@ const MOCK_SPACES: SpaceItem[] = [
     memberCount: 112,
     onlineCount: 40,
     joined: true,
+    isUnread: false,
     iconUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -45,6 +49,7 @@ const MOCK_SPACES: SpaceItem[] = [
     memberCount: 67,
     onlineCount: 15,
     joined: false,
+    isUnread: false,
     iconUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=200&h=200&q=80',
   },
   {
@@ -54,6 +59,7 @@ const MOCK_SPACES: SpaceItem[] = [
     memberCount: 83,
     onlineCount: 19,
     joined: false,
+    isUnread: true,
     iconUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=200&h=200&q=80',
   },
 ];
@@ -62,6 +68,8 @@ export const useSpaces = () => {
   const [data, setData] = useState<SpaceItem[]>(MOCK_SPACES);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const pageRef = useRef(1);
 
   const fetchSpaces = useCallback(async () => {
     try {
@@ -77,12 +85,24 @@ export const useSpaces = () => {
   }, []);
 
   const refresh = useCallback(() => {
+    pageRef.current = 1;
+    setData(MOCK_SPACES);
     fetchSpaces();
   }, [fetchSpaces]);
 
   const loadMore = useCallback(async () => {
-    // Pagination placeholder
-  }, []);
+    if (isLoadingMore) return;
+    setIsLoadingMore(true);
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    const nextPage = pageRef.current + 1;
+    const nextItems = MOCK_SPACES.map((item, index) => ({
+      ...item,
+      id: `${item.id}-page-${nextPage}-${index}`,
+    }));
+    setData((prev) => [...prev, ...nextItems]);
+    pageRef.current = nextPage;
+    setIsLoadingMore(false);
+  }, [isLoadingMore]);
 
   return { data, isLoading, error, refresh, loadMore };
 };

@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { Box, Button, ButtonText, HStack, VStack } from '@gluestack-ui/themed';
+import React from 'react';
+import { Box, HStack, VStack } from '@gluestack-ui/themed';
 import { SpaceItem } from 'app/types/feed';
 import { Card } from './common/Card';
 import { CardTitleText } from './common/CardTitleText';
@@ -9,19 +9,21 @@ import { SpaceIcon } from './SpaceIcon';
 
 export interface SpaceCardProps extends SpaceItem {}
 
+const slugify = (value: string) =>
+  `s/${value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')}`;
+
 const SpaceCardComponent: React.FC<SpaceCardProps> = ({
   name,
   description,
   memberCount,
   iconUrl,
   onlineCount = 0,
-  joined = false,
+  isUnread = false,
 }) => {
-  const [isJoined, setIsJoined] = useState(Boolean(joined));
-
-  const toggleJoin = useCallback(() => {
-    setIsJoined((prev) => !prev);
-  }, []);
 
   return (
     <Card
@@ -31,21 +33,7 @@ const SpaceCardComponent: React.FC<SpaceCardProps> = ({
       <HStack space="md" alignItems="center" justifyContent="space-between">
         <SpaceIcon iconUrl={iconUrl} name={name} size="md" />
         <VStack space="sm" flex={1}>
-          <HStack alignItems="center" justifyContent="space-between" space="sm">
-            <CardTitleText flex={1}>{name}</CardTitleText>
-            <Button
-              size="xs"
-              variant={isJoined ? 'outline' : 'solid'}
-              action={isJoined ? 'secondary' : 'primary'}
-              onPress={toggleJoin}
-              px="$3"
-              py="$1"
-              accessibilityRole="button"
-              accessibilityLabel={`${isJoined ? 'Leave' : 'Join'} ${name}`}
-            >
-              <ButtonText>{isJoined ? 'Joined' : 'Join'}</ButtonText>
-            </Button>
-          </HStack>
+          <CardTitleText>{slugify(name)}</CardTitleText>
           <CardParagraph>{description}</CardParagraph>
           <HStack space="xl" alignItems="center" pt="$1">
             <CardFootnoteText>{memberCount.toLocaleString()} members</CardFootnoteText>

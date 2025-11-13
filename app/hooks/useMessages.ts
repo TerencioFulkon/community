@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { MessageItem } from 'app/types/feed';
 
 const MOCK_MESSAGES: MessageItem[] = [
@@ -10,6 +10,7 @@ const MOCK_MESSAGES: MessageItem[] = [
     preview:
       'Appreciated your sensory thread. Want to pair up for a quiet co-working sprint later today?',
     timestamp: '3m ago',
+    unreadMessageCount: 3,
   },
   {
     id: 'message-2',
@@ -19,6 +20,7 @@ const MOCK_MESSAGES: MessageItem[] = [
     preview:
       'Thanks for joining yesterday’s body-doubling session—how did the task batching feel?',
     timestamp: '45m ago',
+    unreadMessageCount: 1,
   },
   {
     id: 'message-3',
@@ -28,6 +30,7 @@ const MOCK_MESSAGES: MessageItem[] = [
     preview:
       'I loved your post about hyperfocus recovery snacks. Could you share the chia pudding recipe?',
     timestamp: '2h ago',
+    unreadMessageCount: 0,
   },
   {
     id: 'message-4',
@@ -36,6 +39,7 @@ const MOCK_MESSAGES: MessageItem[] = [
       'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&w=160&h=160&q=80',
     preview: 'Would you mind sharing the weighted scarf pattern you mentioned in Sensory Soothers?',
     timestamp: '3h ago',
+    unreadMessageCount: 2,
   },
   {
     id: 'message-5',
@@ -45,6 +49,7 @@ const MOCK_MESSAGES: MessageItem[] = [
     preview:
       'Leaving you an asynchronous voice note—no pressure to reply until you have the spoons. 💛',
     timestamp: 'Yesterday',
+    unreadMessageCount: 0,
   },
   {
     id: 'message-6',
@@ -54,6 +59,7 @@ const MOCK_MESSAGES: MessageItem[] = [
     preview:
       'Tomorrow’s co-working playlist is up. Let me know if the binaural beats feel supportive or too activating.',
     timestamp: '2d ago',
+    unreadMessageCount: 5,
   },
 ];
 
@@ -61,6 +67,8 @@ export const useMessages = () => {
   const [data, setData] = useState<MessageItem[]>(MOCK_MESSAGES);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const pageRef = useRef(1);
 
   const fetchMessages = useCallback(async () => {
     try {
@@ -75,15 +83,38 @@ export const useMessages = () => {
     }
   }, []);
 
+  const sortedData = useMemo(() => {
+    return [...data].sort((a, b) => {
+      const unreadA = a.unreadMessageCount ?? 0;
+      const unreadB = b.unreadMessageCount ?? 0;
+      if (unreadA === unreadB) {
+        return 0;
+      }
+      return unreadB - unreadA;
+    });
+  }, [data]);
+
   const refresh = useCallback(() => {
+    pageRef.current = 1;
+    setData(MOCK_MESSAGES);
     fetchMessages();
   }, [fetchMessages]);
 
   const loadMore = useCallback(async () => {
-    // Pagination placeholder
-  }, []);
+    if (isLoadingMore) return;
+    setIsLoadingMore(true);
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    const nextPage = pageRef.current + 1;
+    const nextItems = MOCK_MESSAGES.map((item, index) => ({
+      ...item,
+      id: `${item.id}-page-${nextPage}-${index}`,
+    }));
+    setData((prev) => [...prev, ...nextItems]);
+    pageRef.current = nextPage;
+    setIsLoadingMore(false);
+  }, [isLoadingMore]);
 
-  return { data, isLoading, error, refresh, loadMore };
+  return { data: sortedData, isLoading, error, refresh, loadMore };
 };
 
 export default useMessages;
